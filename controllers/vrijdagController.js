@@ -1,5 +1,7 @@
-import { getWordsFromSupabase } from "../adaptor/supabaseAdaptor.js";
+import { getWordsFromSupabase, writeWordsToSupabase } from "../adaptor/supabaseAdaptor.js";
 import bodyParser from "body-parser";
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient('https://bcotyeuuntxdoidxhoqw.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjb3R5ZXV1bnR4ZG9pZHhob3F3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjM4MzY5MDUsImV4cCI6MTk3OTQxMjkwNX0.zdnrhP3I3kVXS92Uj_4N9BTDz9Gp3qdfISW6LrQU2uw')
 
 const jsonParser = bodyParser.json()
 
@@ -10,10 +12,7 @@ export async function getWords(req, res, next){
 }
 
 export async function setWord(req, res, next){
-    vrijdagRouter.post("/", jsonParser, async (req, res, next) => {
-        const newData = await supabase.from('vrijdag').insert(
-            req.body
-        )
-        res.json({"data": newData})
-    })
+    console.log('teaCringe');
+    const vrijdag = await writeWordsToSupabase(req.body);
+    res.json(vrijdag);
 }
